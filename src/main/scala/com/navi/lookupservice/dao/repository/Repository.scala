@@ -11,8 +11,8 @@ trait Repository[T] {
 
   def saveAll(args: util.Collection[T])
 
-  def update(value: T) : T
+  def update(value: T) : Long
 
-  def delete(id: Long) : T
+  def delete(id: Long) : Long
 
 }

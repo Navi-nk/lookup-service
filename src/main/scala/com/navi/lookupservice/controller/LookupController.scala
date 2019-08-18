@@ -5,9 +5,7 @@ import java.util.stream.Collectors
 import com.navi.lookupservice.dao.LookupDao
 import com.navi.lookupservice.model.Lookup
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, RequestBody, RestController}
-
-import scala.jdk.CollectionConverters._
+import org.springframework.web.bind.annotation._
 
 @RestController
 class LookupController @Autowired() (val lookupDao: LookupDao) {
@@ -15,6 +13,17 @@ class LookupController @Autowired() (val lookupDao: LookupDao) {
   @PostMapping(Array("save"))
   def saveLookup(@RequestBody lookup: Lookup): Long = {
     lookupDao.save(lookup)
+  }
+
+  @PutMapping(Array("save/{id}"))
+  def saveLookup(@PathVariable id: Long, @RequestBody lookup: Lookup): Long = {
+    lookup.id = id
+    lookupDao.update(lookup)
+  }
+
+  @DeleteMapping(Array("delete/{id}"))
+  def deleteLookup(@PathVariable id: Long): Long = {
+    lookupDao.delete(id)
   }
 
   @GetMapping(Array("fetch/{id}"))
